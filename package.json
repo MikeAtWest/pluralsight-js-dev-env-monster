@@ -4,7 +4,8 @@
   "description": "JavaScript development environment Pluralsight course by Cory House",
   "scripts": {
     "prestart": "babel-node buildScripts/startmessage.js",
-    "start": "npm-run-all --parallel security-check open:src tslint:watch test:watch start-mockapi",
+    "start": "npm-run-all --parallel open:src tslint:watch",
+    "startOLD": "npm-run-all --parallel security-check open:src tslint:watch test:watch start-mockapi",
     "open:src": "babel-node buildScripts/srcServer.js",
     "lint": "esw webpack.config.*  src  buildScripts",
     "lint:watch": "npm run lint -- --watch",

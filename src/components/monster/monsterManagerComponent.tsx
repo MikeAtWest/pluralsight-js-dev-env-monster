@@ -16,21 +16,30 @@ export default class MonsterManager extends React.Component<{}, any> {
     const initialMonster: Monster = new Monster("Ogre", "Large");
     this.state = { monster: initialMonster };
     this.setMonsterState = this.setMonsterState.bind(this);
+    this.setMonsterSizeState = this.setMonsterSizeState.bind(this);
   }
 
-  public setMonsterState(event: React.KeyboardEvent<HTMLInputElement> ): void {
+  public setMonsterState(event: React.KeyboardEvent<HTMLInputElement>): void {
     const field = event.currentTarget.name;
     const value = event.currentTarget.value;
     this.state.monster[field] = value;
     console.log(value); // tslint:disable-line no-console
-    return this.setState( { monster: this.state.monster });
+    return this.setState({ monster: this.state.monster });
+  }
+
+  public setMonsterSizeState(event: React.KeyboardEvent<HTMLSelectElement>): void {
+    const field = event.currentTarget.name;
+    const value = event.currentTarget.value;
+    this.state.monster[field] = value;
+    console.log(value); // tslint:disable-line no-console
+    return this.setState({ monster: this.state.monster });
   }
 
   public render() {
     return (
       <div>
-        <MonsterEditor monster={this.state.monster} onChange={this.setMonsterState} />
-        <MonsterDisplay monster={this.state.monster}  />
+        <MonsterEditor monster={this.state.monster} onChange={this.setMonsterState} onSizeChange={this.setMonsterSizeState} />
+        <MonsterDisplay monster={this.state.monster} />
       </div>
     );
   }
