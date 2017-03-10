@@ -1,35 +1,36 @@
 import * as React from "react";
+import Monster from "./monster";
 import MonsterDisplay from "./monsterDisplayComponent";
 import MonsterEditor from "./monsterEditorComponent";
 
-interface IState {
-  name: string;
-  size: string;
-}
+// interface IState  {
+//   monster: Monster;
+// }
 
-export default class MonsterManager extends React.Component<{}, IState> {
+export default class MonsterManager extends React.Component<{}, any> {
 
-  public state: IState;
+  // public state: IState;
 
-  constructor() {
-    super();
-    this.state = { name: "Orc", size: "Medium" };
-    this.setNameState = this.setNameState.bind(this);
+  constructor(props: any) {
+    super(props);
+    const initialMonster: Monster = new Monster("Ogre", "Large");
+    this.state = { monster: initialMonster };
+    this.setMonsterState = this.setMonsterState.bind(this);
   }
 
-  public setNameState(event) {
-    const value = event.target.value;
-    this.state.name = value;
+  public setMonsterState(event: React.KeyboardEvent<HTMLInputElement> ): void {
+    const field = event.currentTarget.name;
+    const value = event.currentTarget.value;
+    this.state.monster[field] = value;
     console.log(value); // tslint:disable-line no-console
-    return this.setState({ name: this.state.name, size: this.state.size });
-
+    return this.setState( { monster: this.state.monster });
   }
 
   public render() {
     return (
       <div>
-        <MonsterEditor name={this.state.name} size={this.state.size} onChange={this.setNameState} />
-        <MonsterDisplay name={this.state.name} size={this.state.size} />
+        <MonsterEditor monster={this.state.monster} onChange={this.setMonsterState} />
+        <MonsterDisplay monster={this.state.monster}  />
       </div>
     );
   }
